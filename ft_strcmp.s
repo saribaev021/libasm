@@ -1,21 +1,18 @@
 global _ft_strcmp
 section .text
-_ft_strcmp: xor rax, rax
-            xor rcx, rcx
+_ft_strcmp: xor rcx, rcx
+            xor rax, rax
 
-compaire:   cmp byte[rdi + rcx], 0
+compare:   mov al, byte[rdi + rcx]
+            mov bl, byte[rsi + rcx]
+            test al, al
             je done
-            cmp byte[rsi + rcx], 0
+            test bl, bl
             je done
-            mov al, byte[rdi + rcx]
-            cmp al, byte[rsi + rcx]
+            cmp al, bl
             jne done
             inc rcx
-            jmp compaire
+            jmp compare
 
-done:       
-            mov al, byte[rdi + rcx]
-            xor rbx, rbx
-            mov bl, byte[rsi + rcx]
-            sub rax, rbx
+done:       sub rax, rbx
             ret
